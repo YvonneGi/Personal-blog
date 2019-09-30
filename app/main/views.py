@@ -14,13 +14,22 @@ def load_user(user_id):
     '''
     return User.query.get(user_id)
 
+@main.route("/")
+@main.route("/home")
+def home():
+    posts = Post.query.all()
+    # page = request.args.get('page', 1, type=int)
+    # posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    
+    return render_template('home.html', posts=posts)
+
 
 @main.route('/')
-def index():
+def about():
 
     posts=Post.query.all()
 
-    return render_template('index.html', posts=posts)
+    return render_template('about.html', posts=posts)
 
 @main.route('/post', methods=['GET','POST'])
 def new_post():
@@ -60,7 +69,7 @@ def delete(id):
     del_comment = Comment.query.get(id)
     db.session.delete(del_comment)
     db.session.commit()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.layout'))
 
 @main.route('/subscription',methods = ["GET","POST"])
 def subscriber():
@@ -78,4 +87,4 @@ def subscriber():
         return redirect(url_for('subscriber'))
 
 
-    return render_template('index.html',email= email, subscribe_form=form )
+    return render_template('layout.html',email= email, subscribe_form=form )
