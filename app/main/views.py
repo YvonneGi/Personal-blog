@@ -14,22 +14,30 @@ def load_user(user_id):
     '''
     return User.query.get(user_id)
 
-@main.route("/")
-@main.route("/home")
-def home():
-    posts = Post.query.all()
-    # page = request.args.get('page', 1, type=int)
-    # posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    
-    return render_template('home.html', posts=posts)
-
 
 @main.route('/')
-def about():
+def index():
+    
 
     posts=Post.query.all()
 
-    return render_template('about.html', posts=posts)
+    
+    return render_template('index.html', posts=posts)
+
+# @main.route("/")
+# @main.route("/home")
+# def home():
+#     posts = Post.query.all()
+#     # page = request.args.get('page', 1, type=int)
+#     # posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    
+#     return render_template('home.html', posts=posts)
+
+@main.route("/about")
+def about():
+    return render_template('about.html', title='About')
+
+
 
 @main.route('/post', methods=['GET','POST'])
 def new_post():
@@ -42,7 +50,6 @@ def new_post():
         title = post_form.title.data
         body = post_form.body.data
         new_post = Post(title=title,body = body)
-
         new_post.save_post()
         return redirect(url_for('main.index'))
 
@@ -69,7 +76,7 @@ def delete(id):
     del_comment = Comment.query.get(id)
     db.session.delete(del_comment)
     db.session.commit()
-    return redirect(url_for('main.layout'))
+    return redirect(url_for('main.index'))
 
 @main.route('/subscription',methods = ["GET","POST"])
 def subscriber():
@@ -80,11 +87,9 @@ def subscriber():
     if form.validate_on_submit():
         email = form.email.data
         date = form.date.data
-
         new_subscriber = Subscription(email=email,date = date,user_id=current_user.id)
-
         new_subscriber.save_subscriber()
         return redirect(url_for('subscriber'))
 
 
-    return render_template('layout.html',email= email, subscribe_form=form )
+    return render_template('index.html',email= email, subscribe_form=form )

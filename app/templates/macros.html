@@ -1,0 +1,18 @@
+{% macro displayPost(post_list) %}
+    {% for post in post_list %}
+
+    <h3><a href="/post/post.id"></a></h3>
+    {% endfor %}
+{% endmacro %}
+
+{% macro displayComment(comment_list) %}
+    {% for comment in comment_list %}
+
+    <div class="col-md-4">
+        <div class="panel-body">
+            <p>{{ comment.comment_body }}</p>
+        </div>
+    </div>
+
+    {% endfor %}
+{% endmacro %}

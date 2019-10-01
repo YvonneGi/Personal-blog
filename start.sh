@@ -1,5 +1,5 @@
-export EMAIL_USER = 'yvogi2780@gmail.com'
-export EMAIL_PASS = 'rwanda1994'
-export SECRET_KEY='123'
-
+export QUOTE_API_BASE_URL = "http://quotes.stormconsultancy.co.uk/random.json"
+export SECRET_KEY=123
+export MAIL_USERNAME='yvogi2780@gmail.com'
+export MAIL_PASSWORD='rwanda1994'
 python3.6 manage.py server
