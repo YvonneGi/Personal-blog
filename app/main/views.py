@@ -60,17 +60,17 @@ def new_post():
     return render_template('new_post.html', form=form)
 
 @main.route('/delete/post/<int:id>', methods=['GET', 'POST'])
+@login_required
 def delete_post(id):
     """
     view route to delete a selected post
     """
     post = Post.query.filter_by(id=id).first()
 
-    if post is None:
-        abort(404)
+    if post is not None:
 
-        post.delete_post(id)
-    return redirect(url_for('main.index'))
+        post.delete_post()
+        return redirect(url_for('main.index'))
 
 @main.route("/update/post/<int:id>", methods=['GET', 'POST'])
 @login_required
@@ -87,7 +87,7 @@ def update_post(id):
         flash('Your post has been updated!', 'success')
         return redirect(url_for('main.index'))
     
-    return render_template('new_post.html',form=form)    
+        return render_template('new_post.html',form=form)    
 
 
 @main.route('/post/comment/new/<int:id>', methods=['GET', 'POST'])
@@ -121,7 +121,7 @@ def delete(id):
     if comment is not None:
         comment.delete_comment()
         
-    return redirect(url_for('main.index'))
+        return redirect(url_for('main.index'))
 
 @main.route('/subscription/fill',methods = ["GET","POST"])
 def subscriber():
@@ -135,9 +135,7 @@ def subscriber():
         new_subscriber = Subscription(email=email,name=name)
         db.session.add(new_subscriber)
         db.session.commit()
-        return redirect(url_for('main.subscriber'))
 
-        mail_message("Thank you for subscribing","email/welcome_user",new_subscriber.email,user=new_subscriber)
-
-
+        mail_message("Thank you for subscribing","email/welcome_user",new_subscriber.email,new_subscriber=new_subscriber)
+        return redirect(url_for('main.index'))
     return render_template('subscription.html', form=form )

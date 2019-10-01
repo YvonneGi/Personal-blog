@@ -8,10 +8,11 @@
 
     <!--Styles for index-->
     <style>
-        body{
+        body {
             background-image: url('./static/images/sky.jpg');
         }
-        h3{
+
+        h3 {
             padding: 20px;
             border-radius: 20px;
             opacity: 0.9;
@@ -34,35 +35,58 @@
     {% block content %}
 
     <title> {{ title }} </title>
-    <div class="container" style="text-align: center;">
-    <div class="row">
-        <div class="text-center text-lg">
-            <h1 style="color:rgb(245, 105, 11); text-align: center;font-family: 'Open Sans Condensed', sans-serif">Random Quote</h1>
-            <p style="color:whitesmoke">{{quote.content}}</p>
-            <footer style="color: whitesmoke"><cite>{{quote.author}}</cite></footer>
+    <div class="container-fluide" style="text-align: center;">
+        <div class="container">
+            <div class="row">
+                <div class="text-center text-lg">
+                    <h1
+                        style="color:rgb(245, 105, 11); text-align: center;font-family: 'Open Sans Condensed', sans-serif">
+                        Random Quote</h1>
+                    <p style="color:whitesmoke">{{quote.content}}</p>
+                    <footer style="color: whitesmoke"><cite>{{quote.author}}</cite></footer>
+                </div>
+                <hr>
+            </div>
         </div>
-        <hr>
-    </div>
-    <div class="row">
         <div class="row">
-            <div class="col-md-10">
-        
-        <h3 class="index-header" style="background-color: black; color: white;width: 68%;">Latest Updates</h3>
-        
-        <ul class="list-unstyled" style="padding-left: 20px;">
-            {{ macro.displayPostList(posts)}}
-        </ul>
-    </div>
-    </div>
-    <div class="article-metadata">
-           
-              <div>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_post', post_id=post.id) }}">Update</a>
-                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-              </div>
-           
-    </div>
-    </div>
+            <main role="main" class="container">
+
+                <div class="col-md-8">
+
+                    <h3 class="index-header" style="background-color: black; color: white;width: 68%;">Latest Blogs
+                    </h3>
+
+                    <ul class="list-unstyled" style="padding-left: 20px;">
+                        {{ macro.displayPostList(posts)}}
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <div>
+                        <h3 style="text-align: center;color:white;font-size: 20px;background-color: black;">Our Sidebar
+                        </h3>
+                        <br>
+                        <p style="color: white;font-size:20px">
+                            Hello,
+                            Welcome to this blog site where you will find different inspiring blogs<br>
+                            Fill fre to post yours or add a comment to the existing post.
+                            Enjoy blogging!
+                        </p>
+                    </div> <br>
+                    <div>
+                        <button><a href="/subscription/fill"
+                                style="color: rgb(70, 2, 2);font-size:20px">subscribe</a></button>
+
+                    </div>
+
+                </div>
+            </main>
+        </div>
+        <br><br>
+        <div class="footer">
+            <h4 style="text-align: center;font-style:oblique;font-size: 10px">&copy;YvonneGi,2019 All right reseved.
+            </h4>
+        </div>
     </div>
     {% endblock %}
 </body>

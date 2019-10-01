@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,TextAreaField,RadioField,SubmitField,SelectField,ValidationError
+from wtforms import StringField,TextAreaField,SubmitField,ValidationError
 from wtforms.validators import Required
 
 #Post Form
@@ -15,12 +15,13 @@ class CommentForm(FlaskForm):
 
 #Subscription Form
 class SubscriptionForm(FlaskForm):
-    email = TextAreaField('Email')
+    name = StringField('Name')
+    email = StringField('Email')
     submit = SubmitField()
 
-    def validate_email(self,field):
-        if SubscriptionForm.query.filter_by(email=field.data).first():
-            raise ValidationError('Email exists')
+    # def validate_email(self,field):
+    #     if SubscriptionForm.query.filter_by(email=field.data).first():
+    #         raise ValidationError('Email exists')
 
 class UpdatePost(FlaskForm):
     body = TextAreaField("Update Post", validators=[Required()])

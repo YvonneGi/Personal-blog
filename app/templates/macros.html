@@ -1,18 +1,34 @@
-{% macro displayPost(post_list) %}
-    {% for post in post_list %}
+<!DOCTYPE html>
+<html lang="en">
 
-    <h3><a href="/post/post.id"></a></h3>
-    {% endfor %}
-{% endmacro %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
 
-{% macro displayComment(comment_list) %}
-    {% for comment in comment_list %}
-
-    <div class="col-md-4">
-        <div class="panel-body">
-            <p>{{ comment.comment_body }}</p>
-        </div>
+<body>
+    <!-- Display posts -->
+    {% macro displayPostList(post_list) %} {% for post in post_list %}
+    <div class="row">
+        <div class=" col-xs-12 col-sm-12 col-md-8 col-lg-8 well post-well">
+            <li class="text-center">
+                <h3 class="post-title">
+                    <a href="/post/{{post.id}}">{{ post.title }}</a>
+                    <br>
+                </h3>
+                <p>{{ post.body }}</p>
+            </li>
+            <div>
+                <a href="/update/post/{{post.id}}" class="btn btn-success">Update post</a>
+                <a href="/post/comment/new/{{post.id}}" class="btn btn-primary">Add comment</a>
+                <a href="/post/{{post.id}}" class="btn btn-info">View comments</a>
+                <a href="/delete/post/{{post.id}}" class="btn btn-danger btn-sm m-1">Delete post</a>
+            </div>
+        </div> 
     </div>
+    {% endfor %} {% endmacro %}
 
-    {% endfor %}
-{% endmacro %}
+</body>
+
+</html>

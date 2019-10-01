@@ -1,0 +1,2 @@
+hy {{new_subscriber.name}}
+Welcome to the Blog
