@@ -1,44 +1,70 @@
-{% extends 'base.html'%} {% import 'macros.html' as macro %} {% block styles%} {{ super() }}
-<!--super() function tells Jinja not to override any code that is defined in the block-->
-<link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}"> {% endblock %} {% block content %}
-<br>
-<div class="container-fluid" style="font-family: 'Russo One', sans-serif;">
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <div class="container">
-        <div class="content">
-            <div class="title-area">
+    <!--Styles for index-->
+    <style>
+        body{
+            background-image: url('./static/images/sky.jpg');
+        }
+        h3{
+            padding: 20px;
+            border-radius: 20px;
+            opacity: 0.9;
+            text-align: center;
+        }
+    </style>
 
-                <h1 class="title-modern" style="font-size:10vh;color:rgb(11, 12, 12); text-align: center;padding: 10px">Just Blog It</h1>
+</head>
 
-                
+<body>
+    {% extends 'base.html' %}
+    {% import 'macros.html' as macro %}
+    {% import "bootstrap/wtf.html" as wtf%}
 
-                <hr>
+    <!-- Styles block -->
+    {% block styles%} {{ super() }}
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet"> {% endblock %}
 
-                    <div class="col-md-8">
-                        <h3 style="font-size:6vh;color:rgb(10, 10, 10);opacity:0.5; text-align: center;padding: 40px">Published Posts</h3>
-                        
-                        <br>
-                    </div>
-                    <div class="col-md-4">
-                            <div class="content-section">
-                                    <h3>Our Sidebar</h3>
-                                    <p class='text-muted'>You can put any information here you'd like.
-                                      <ul class="list-group">
-                                        <li class="list-group-item list-group-item-light">Latest Posts</li>
-                                        <li class="list-group-item list-group-item-light">Announcements</li>
-                                        <li class="list-group-item list-group-item-light">Calendars</li>
-                                        <li class="list-group-item list-group-item-light">etc</li>
-                                      </ul>
-                                    </p>
-                            </div>
-                    </div>
-               
-            </div>
+    <!-- Content block -->
+    {% block content %}
+
+    <title> {{ title }} </title>
+    <div class="container" style="text-align: center;">
+    <div class="row">
+        <div class="text-center text-lg">
+            <h1 style="color:rgb(245, 105, 11); text-align: center;font-family: 'Open Sans Condensed', sans-serif">Random Quote</h1>
+            <p style="color:whitesmoke">{{quote.content}}</p>
+            <footer style="color: whitesmoke"><cite>{{quote.author}}</cite></footer>
         </div>
-
-
+        <hr>
     </div>
-</div>
+    <div class="row">
+        <div class="row">
+            <div class="col-md-10">
+        
+        <h3 class="index-header" style="background-color: black; color: white;width: 68%;">Latest Updates</h3>
+        
+        <ul class="list-unstyled" style="padding-left: 20px;">
+            {{ macro.displayPostList(posts)}}
+        </ul>
+    </div>
+    </div>
+    <div class="article-metadata">
+           
+              <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_post', post_id=post.id) }}">Update</a>
+                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+              </div>
+           
+    </div>
+    </div>
+    </div>
+    {% endblock %}
+</body>
 
-{% endblock %}
+</html>
