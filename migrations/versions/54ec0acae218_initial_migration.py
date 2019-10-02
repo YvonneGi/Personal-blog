@@ -1,8 +1,8 @@
 """Initial Migration
 
-Revision ID: f9aaf41e069e
+Revision ID: 54ec0acae218
 Revises: 
-Create Date: 2019-09-30 17:41:04.382720
+Create Date: 2019-10-01 12:14:41.530725
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f9aaf41e069e'
+revision = '54ec0acae218'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,21 +25,12 @@ def upgrade():
     sa.Column('pass_secure', sa.String(length=255), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('writers',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=255), nullable=True),
-    sa.Column('email', sa.String(), nullable=True),
-    sa.Column('pass_secure', sa.String(length=255), nullable=True),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(), nullable=True),
     sa.Column('body', sa.String(), nullable=True),
-    sa.Column('writer_id', sa.Integer(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['writer_id'], ['writers.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('subscriptions',
@@ -55,10 +46,8 @@ def upgrade():
     sa.Column('body', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('post_id', sa.Integer(), nullable=True),
-    sa.Column('writer_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['post_id'], ['posts.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['writer_id'], ['writers.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
@@ -69,6 +58,5 @@ def downgrade():
     op.drop_table('comments')
     op.drop_table('subscriptions')
     op.drop_table('posts')
-    op.drop_table('writers')
     op.drop_table('users')
     # ### end Alembic commands ###
